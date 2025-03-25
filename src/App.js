@@ -1,8 +1,15 @@
+import { useEffect, useState } from "react";
 import { ConsultaPeliculas } from "./components/ConsultaPeliculas";
 import { CrearPelicula } from "./components/CrearPelicula";
 import { ListadoPeliculas } from "./components/ListadoPeliculas";
 import logo from "./logo.svg";
 function App() {
+  const [peliculasState, setPeliculasState] = useState([]);
+  useEffect(() => {
+    const items = JSON.parse(localStorage.getItem("peliculas")) || [];
+    setPeliculasState(items);
+  }, []); // Se ejecuta solo al montar el componente
+
   return (
     <div className="layout">
       {/*Cabecera*/}
@@ -32,9 +39,13 @@ function App() {
       {/*Contenido principal*/}
       <section id="content" className="content">
         {/*aqui van las peliculas*/}
-        {Array.from({ length: 4 }, (_, index) => (
-          <ListadoPeliculas key={index} />
-        ))}
+        {peliculasState.length > 0 ? (
+          peliculasState.map((pelicula, index) => (
+            <ListadoPeliculas key={index} pelicula={pelicula} />
+          ))
+        ) : (
+          <p>No hay películas en el almacenamiento.</p>
+        )}
       </section>
 
       {/*Barra lateral*/}
