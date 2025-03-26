@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { SaveOnLocalStorage } from "../helpers/SaveOnLocalStorage";
 
 export const CrearPelicula = () => {
   const tituloComponent = "Crear Pelicula";
@@ -17,18 +18,7 @@ export const CrearPelicula = () => {
       description,
     };
     setPeliculaState(pelicula);
-    saveOnLocalStorage(pelicula);
-  };
-
-  const saveOnLocalStorage = (pelicula) => {
-    let items = JSON.parse(localStorage.getItem("peliculas"));
-    if (Array.isArray(items)) {
-      items.push(pelicula);
-    } else {
-      items = [pelicula];
-    }
-    localStorage.setItem("peliculas", JSON.stringify(items));
-    console.log(items);
+    SaveOnLocalStorage("peliculas", pelicula);
   };
 
   return (
