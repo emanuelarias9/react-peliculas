@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { SaveOnLocalStorage } from "../helpers/SaveOnLocalStorage";
 
-export const CrearPelicula = () => {
+export const CrearPelicula = ({ setListadoState }) => {
   const tituloComponent = "Crear Pelicula";
   const [peliculaState, setPeliculaState] = useState({
     title: "",
@@ -17,7 +17,14 @@ export const CrearPelicula = () => {
       title,
       description,
     };
+    //guarda el estado
     setPeliculaState(pelicula);
+
+    //actualiza el estado del listado principal
+    setListadoState((items) => {
+      return [...items, pelicula];
+    });
+
     SaveOnLocalStorage("peliculas", pelicula);
   };
 

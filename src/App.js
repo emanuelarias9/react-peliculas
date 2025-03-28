@@ -1,15 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ConsultaPeliculas } from "./components/ConsultaPeliculas";
 import { CrearPelicula } from "./components/CrearPelicula";
 import { ListadoPeliculas } from "./components/ListadoPeliculas";
+import { NavBar } from "./components/NavBar";
 import logo from "./logo.svg";
 function App() {
-  const [peliculasState, setPeliculasState] = useState([]);
-  useEffect(() => {
-    const items = JSON.parse(localStorage.getItem("peliculas")) || [];
-    setPeliculasState(items);
-  }, []); // Se ejecuta solo al montar el componente
-
+  const [listadoState, setListadoState] = useState([]);
   return (
     <div className="layout">
       {/*Cabecera*/}
@@ -19,40 +15,22 @@ function App() {
       </header>
 
       {/*Barra de navegación*/}
-      <nav className="nav">
-        <ul>
-          <li>
-            <a href="/#">Inicio</a>
-          </li>
-          <li>
-            <a href="/#">Peliculas</a>
-          </li>
-          <li>
-            <a href="/#">Blog</a>
-          </li>
-          <li>
-            <a href="/#">Contacto</a>
-          </li>
-        </ul>
-      </nav>
+      <NavBar />
 
       {/*Contenido principal*/}
       <section id="content" className="content">
         {/*aqui van las peliculas*/}
-        {peliculasState.length > 0 ? (
-          peliculasState.map((pelicula, index) => (
-            <ListadoPeliculas key={index} pelicula={pelicula} />
-          ))
-        ) : (
-          <p>No hay películas en el almacenamiento.</p>
-        )}
+        <ListadoPeliculas
+          listadoState={listadoState}
+          setListadoState={setListadoState}
+        />
       </section>
 
       {/*Barra lateral*/}
       <aside className="lateral">
         <ConsultaPeliculas />
 
-        <CrearPelicula />
+        <CrearPelicula setListadoState={setListadoState} />
       </aside>
 
       {/*Pie de página*/}
