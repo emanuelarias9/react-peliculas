@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import React from "react";
+import { Editar } from "./Editar";
 
 export const ListadoPeliculas = ({ listadoState, setListadoState }) => {
+  const [editar, setEditar] = useState(0);
+
   useEffect(() => {
     GetPeliculas();
   }, []); // Se ejecuta solo al montar el componente
@@ -28,10 +31,25 @@ export const ListadoPeliculas = ({ listadoState, setListadoState }) => {
               <h3 className="title">{pelicula.title}</h3>
               <p className="description">{pelicula.description}</p>
 
-              <button className="edit">Editar</button>
+              <button
+                className="edit"
+                onClick={() => {
+                  setEditar(pelicula.id);
+                }}
+              >
+                Editar
+              </button>
               <button className="delete" onClick={() => Eliminar(pelicula.id)}>
                 Borrar
               </button>
+              {editar === pelicula.id && (
+                <Editar
+                  pelicula={pelicula}
+                  getPeliculas={GetPeliculas}
+                  setEditar={setEditar}
+                  setListadoState={setListadoState}
+                />
+              )}
             </article>
           );
         })
