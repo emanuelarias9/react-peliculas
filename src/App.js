@@ -28,7 +28,10 @@ function App() {
 
       {/*Barra lateral*/}
       <aside className="lateral">
-        <ConsultaPeliculas />
+        <ConsultaPeliculas
+          listadoState={listadoState}
+          setListadoState={setListadoState}
+        />
 
         <CrearPelicula setListadoState={setListadoState} />
       </aside>
