@@ -3,14 +3,22 @@ import React from "react";
 
 export const ListadoPeliculas = ({ listadoState, setListadoState }) => {
   useEffect(() => {
-    getPeliculas();
+    GetPeliculas();
   }, []); // Se ejecuta solo al montar el componente
 
-  const getPeliculas = () => {
+  const GetPeliculas = () => {
     let items = JSON.parse(localStorage.getItem("peliculas"));
     setListadoState(items);
+    return items;
   };
-
+  const Eliminar = (id) => {
+    let peliculasAlmacenadas = GetPeliculas();
+    let newPeliculasAlmacenadas = peliculasAlmacenadas.filter(
+      (peli) => peli.id !== parseInt(id)
+    );
+    setListadoState(newPeliculasAlmacenadas);
+    localStorage.setItem("peliculas", JSON.stringify(newPeliculasAlmacenadas));
+  };
   return (
     <>
       {listadoState != null ? (
@@ -21,7 +29,9 @@ export const ListadoPeliculas = ({ listadoState, setListadoState }) => {
               <p className="description">{pelicula.description}</p>
 
               <button className="edit">Editar</button>
-              <button className="delete">Borrar</button>
+              <button className="delete" onClick={() => Eliminar(pelicula.id)}>
+                Borrar
+              </button>
             </article>
           );
         })

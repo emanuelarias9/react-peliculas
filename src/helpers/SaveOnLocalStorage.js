@@ -6,5 +6,4 @@ export const SaveOnLocalStorage = (key, item) => {
     items = [item];
   }
   localStorage.setItem(key, JSON.stringify(items));
-  console.log(items);
 };
