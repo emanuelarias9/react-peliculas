@@ -11,7 +11,7 @@ function App() {
       {/*Cabecera*/}
       <header className="header">
         <img src={logo} className="logo" alt="logo" />
-        <h1>React Peliculas</h1>
+        <h1>ReactFlix</h1>
       </header>
 
       {/*Barra de navegación*/}
